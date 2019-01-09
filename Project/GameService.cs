@@ -84,12 +84,22 @@ namespace CastleGrimtol.Project
 
     public void Quit()
     {
-      System.Console.WriteLine("Fine, Quit. Go Back To Your Old Life Then");
+      System.Console.WriteLine("Do You Want to play again?  y/n ");
+      string response = Console.ReadLine().ToLower();
+      if ((response == "y" || response == "yes")
+      {
+        Reset();
+      }
+      else
+      {
+        System.Console.WriteLine("Fine, Quit. Go Back To Your Old Life Then");
+      }
     }
 
     public void Reset()
     {
-
+      //reset the game 
+      Setup();
     }
 
     public void Setup()

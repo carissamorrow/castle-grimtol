@@ -86,7 +86,7 @@ namespace CastleGrimtol.Project
     {
       System.Console.WriteLine("Do You Want to play again?  y/n ");
       string response = Console.ReadLine().ToLower();
-      if ((response == "y" || response == "yes")
+      if ((response == "y" || response == "yes"))
       {
         Reset();
       }

@@ -6,6 +6,13 @@ namespace CastleGrimtol.Project
 {
   public class GameService : IGameService
   {
+    private string name;
+
+    public GameService(string name)
+    {
+      this.name = name;
+    }
+
     public Room CurrentRoom { get; set; }
     public Player CurrentPlayer { get; set; }
 
@@ -36,7 +43,7 @@ namespace CastleGrimtol.Project
 
     public void Quit()
     {
-
+      //console "go back to your old life then"
     }
 
     public void Reset()
@@ -56,12 +63,12 @@ namespace CastleGrimtol.Project
 
     public void TakeItem(string itemName)
     {
-
+      //bonus check
     }
 
     public void UseItem(string itemName)
     {
-
+      //bonus check 
     }
   }
 }

@@ -25,7 +25,41 @@ namespace CastleGrimtol.Project
 
     public void GetUserInput()
     {
+      string input = Console.ReadLine();
+      string command = input;
+      string userOption = "";
       //switch statement for actions
+      switch (command)
+      {
+        case "GO":
+          Go(userOption);
+          break;
+
+        case "Use":
+          UseItem(userOption);
+          break;
+
+        case "Take":
+          TakeItem(userOption);
+          break;
+
+        case "Look":
+          Look();
+          break;
+
+        case "Inventory":
+          Inventory();
+          break;
+
+        case "Help":
+          Help();
+          break;
+
+        case "Quit":
+          Quit();
+          break;
+
+      }
     }
 
     public void Go(string direction)
@@ -128,9 +162,9 @@ namespace CastleGrimtol.Project
       Setup();
       while (Playing)
       {
-        System.Console.Write($"\n What will your next move be? {CurrentPlayer.PlayerName}?");
+        System.Console.Write($"\n What will your next move be {CurrentPlayer.PlayerName}?");
         GetUserInput();
-        Playing = false; //stops infinite loop for now
+        Playing = true;
       }
 
     }

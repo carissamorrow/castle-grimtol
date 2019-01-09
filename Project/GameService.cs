@@ -7,11 +7,14 @@ namespace CastleGrimtol.Project
 {
   public class GameService : IGameService
   {
-    private string Name;
+    // private string Name;
 
-    public GameService(string name)
+    public GameService(Player player)
     {
-      Name = name;
+      // Name = name;
+      CurrentPlayer = player;
+      Commands = new Dictionary<string, string>();
+      Directions = new List<string>();
     }
 
     public Room CurrentRoom { get; set; }
@@ -52,7 +55,7 @@ namespace CastleGrimtol.Project
 
     public void Reset()
     {
-
+      //reset game
     }
 
     public void Setup()
@@ -71,6 +74,21 @@ namespace CastleGrimtol.Project
       Room Worldtravel = new Room("World Traveler", "You are a World Traveler. You are sitting in a café in Italy, violins are playing in the background and you have the whole day ahead of you with no plans. A young couple to your right are having a loud conversation. You see the door to the West....");
 
       Room Random = new Room("Random Room", "You are in a room of endless opportunities. Good things may happen, bad things may happen. You have doors all around you, do you take the chance and stay?...");
+
+      //directions
+      Directions.Add("North");
+      Directions.Add("South");
+      Directions.Add("East");
+      Directions.Add("West");
+
+      //commands
+      Commands.Add("Go", "<direction>");
+      Commands.Add("Use", "<ItemName>");
+      Commands.Add("Take", "<ItemName>");
+      Commands.Add("Look", "");
+      Commands.Add("Inventory", "");
+      Commands.Add("Help", "");
+      Commands.Add("Quit", "");
     }
 
     public void StartGame()

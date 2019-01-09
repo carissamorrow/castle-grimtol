@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CastleGrimtol.Project;
+using CastleGrimtol.Project.Models;
 
 namespace CastleGrimtol
 {
@@ -15,7 +16,8 @@ namespace CastleGrimtol
       string response = Console.ReadLine().ToLower();
       if (response == "y" || response == "yes")
       {
-        GameService gameService = new GameService(name);
+        Player player = new Player(name);
+        GameService gameService = new GameService(player);
         gameService.StartGame();
       }
     }

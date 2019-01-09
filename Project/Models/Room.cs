@@ -18,7 +18,7 @@ namespace CastleGrimtol.Project.Models
       Description = description;
       Gameover = gameover;
       LockedRoom = lockedroom;
-      // Exits = new Dictionary<string, Room>();
+      Exits = new Dictionary<string, IRoom>();
       Items = new List<Item>();
     }
 

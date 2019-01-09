@@ -17,7 +17,7 @@ namespace CastleGrimtol.Project
       Directions = new List<string>();
     }
 
-    public Room CurrentRoom { get; set; }
+    public IRoom CurrentRoom { get; set; }
     public Player CurrentPlayer { get; set; }
     public bool Playing { get; set; }
     public Dictionary<string, string> Commands { get; set; }
@@ -25,7 +25,7 @@ namespace CastleGrimtol.Project
 
     public void GetUserInput()
     {
-
+      //switch statement for actions
     }
 
     public void Go(string direction)
@@ -55,7 +55,7 @@ namespace CastleGrimtol.Project
 
     public void Reset()
     {
-      //reset game
+
     }
 
     public void Setup()
@@ -67,19 +67,27 @@ namespace CastleGrimtol.Project
       //build rooms
       Room Hallway = new Room("Hallway", "You are in the hallway. So many choices for your new life but how do you choose? Be very careful, some choices seem obvious and better than others but this is your new life so choose wisely. Which way will you go?");
 
-      Room Career = new Room("Career", "You are in the career room. Seems bright at first but dims as the day goes on…not enough coffee to save you. You see a small door to the north and to the east, the South door is locked. Which door will you choose to continue?...");
+      Room Career = new Room("Career", "You are in the career room. Seems bright at first but dims as the day goes on…not enough coffee to save you. You see a small door to the north and to the south, the East and West doors are locked. Which door will you choose to continue?...");
 
-      Room Family = new Room("Family Room", "You are in the Family Room. Children running everywhere, cereal on the floor and giggles fill the air. You are pleasantly happy and stressed all at the same time. There are doors all around you but the South door is locked, will you retreat?...");
+      Room Family = new Room("Family Room", "You are in the Family Room. Children running everywhere, cereal on the floor and giggles fill the air. You are pleasantly happy and stressed all at the same time. There are doors all around you but the South and North door is locked, where will you retreat?...");
 
       Room Worldtravel = new Room("World Traveler", "You are a World Traveler. You are sitting in a café in Italy, violins are playing in the background and you have the whole day ahead of you with no plans. A young couple to your right are having a loud conversation. You see the door to the West....");
 
-      Room Random = new Room("Random Room", "You are in a room of endless opportunities. Good things may happen, bad things may happen. You have doors all around you, do you take the chance and stay?...");
+      Room Random = new Room("Random Room", "You are in a room of endless opportunities. Good things may happen, bad things may happen. Life will decide your fate");
 
       //exits to rooms
       Hallway.Exits.Add("North", Family);
       Hallway.Exits.Add("South", Random);
       Hallway.Exits.Add("East", Career);
       Hallway.Exits.Add("West", Worldtravel);
+      Random.Exits.Add("North", Career);
+      Random.Exits.Add("West", Worldtravel);
+      Family.Exits.Add("East", Career);
+      Family.Exits.Add("West", Random);
+      Career.Exits.Add("North", Family);
+      Career.Exits.Add("South", Random);
+      Worldtravel.Exits.Add("West", Family);
+      Worldtravel.Exits.Add("South", Career);
 
 
       //directions
@@ -108,6 +116,11 @@ namespace CastleGrimtol.Project
       Career.Items.Add(bonus);
       Family.Items.Add(car);
       Worldtravel.Items.Add(map);
+
+      //start player in hallway to start the game
+      System.Console.WriteLine("Thank you for playing. You are starting in the Hallway with an option in every direction. Choose Wisely and Enjoy the Game of Your Own Life...");
+      CurrentRoom = Hallway;
+      Look();
     }
 
     public void StartGame()
@@ -115,9 +128,9 @@ namespace CastleGrimtol.Project
       Setup();
       while (Playing)
       {
-        System.Console.Write($"\n What will your next move be? {CurrentPlayer.PlayerName}? Go North, South, East, or West ");
+        System.Console.Write($"\n What will your next move be? {CurrentPlayer.PlayerName}?");
         GetUserInput();
-        Playing = false; //stops the infinite loop for now
+        Playing = false; //stops infinite loop for now
       }
 
     }

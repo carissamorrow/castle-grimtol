@@ -20,6 +20,10 @@ namespace CastleGrimtol
         GameService gameService = new GameService(player);
         gameService.StartGame();
       }
+      else if (response != "y" || response != "yes")
+      {
+        System.Console.WriteLine("Not a Valid Entry");
+      }
     }
   }
 }

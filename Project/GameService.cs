@@ -75,6 +75,13 @@ namespace CastleGrimtol.Project
 
       Room Random = new Room("Random Room", "You are in a room of endless opportunities. Good things may happen, bad things may happen. You have doors all around you, do you take the chance and stay?...");
 
+      //exits to rooms
+      Hallway.Exits.Add("North", Family);
+      Hallway.Exits.Add("South", Random);
+      Hallway.Exits.Add("East", Career);
+      Hallway.Exits.Add("West", Worldtravel);
+
+
       //directions
       Directions.Add("North");
       Directions.Add("South");
@@ -89,6 +96,18 @@ namespace CastleGrimtol.Project
       Commands.Add("Inventory", "");
       Commands.Add("Help", "");
       Commands.Add("Quit", "");
+
+      //items
+      Item key = new Item("key", "on the floor is a key that will unlock your future dream, or nightmare");
+      Item bonus = new Item("bonus check", "next to you is a bonus check, is it worth anything??");
+      Item car = new Item("minivan", "wow it's a minivan! You need this for all of your kids");
+      Item map = new Item("map", "near you is a map that may help your journey, if you can trust it...");
+
+      //items to rooms
+      Random.Items.Add(key);
+      Career.Items.Add(bonus);
+      Family.Items.Add(car);
+      Worldtravel.Items.Add(map);
     }
 
     public void StartGame()
@@ -98,6 +117,7 @@ namespace CastleGrimtol.Project
       {
         System.Console.Write($"\n What will your next move be? {CurrentPlayer.PlayerName}? Go North, South, East, or West ");
         GetUserInput();
+        Playing = false; //stops the infinite loop for now
       }
 
     }

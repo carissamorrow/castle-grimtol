@@ -25,37 +25,37 @@ namespace CastleGrimtol.Project
 
     public void GetUserInput()
     {
-      string input = Console.ReadLine();
+      string input = Console.ReadLine().ToLower();
       string command = input;
       string userOption = "";
       //switch statement for actions
       switch (command)
       {
-        case "GO":
+        case "go":
           Go(userOption);
           break;
 
-        case "Use":
+        case "use":
           UseItem(userOption);
           break;
 
-        case "Take":
+        case "take":
           TakeItem(userOption);
           break;
 
-        case "Look":
+        case "look":
           Look();
           break;
 
-        case "Inventory":
+        case "inventory":
           Inventory();
           break;
 
-        case "Help":
+        case "help":
           Help();
           break;
 
-        case "Quit":
+        case "quit":
           Quit();
           break;
 
@@ -84,7 +84,7 @@ namespace CastleGrimtol.Project
 
     public void Quit()
     {
-      System.Console.WriteLine("Fine, Quit. Go Back To Your Old Lift Then");
+      System.Console.WriteLine("Fine, Quit. Go Back To Your Old Life Then");
     }
 
     public void Reset()
@@ -152,7 +152,7 @@ namespace CastleGrimtol.Project
       Worldtravel.Items.Add(map);
 
       //start player in hallway to start the game
-      System.Console.WriteLine("Thank you for playing. You are starting in the Hallway with an option in every direction. Choose Wisely and Enjoy the Game of Your Own Life...");
+      System.Console.WriteLine("Thank you for playing! You are starting the game in the Hallway of your new life with an option in every direction. Choose Wisely and Enjoy the Game...");
       CurrentRoom = Hallway;
       Look();
     }

@@ -26,6 +26,7 @@ namespace CastleGrimtol.Project
     public bool UseKey { get; private set; }
     public Item IsWinnable { get; private set; }
     public Item IsLosable { get; private set; }
+    public Item BrightenRoom { get; private set; }
 
     public void GetUserInput()
     {
@@ -195,7 +196,7 @@ namespace CastleGrimtol.Project
       Item key = new Item("key", "on the floor is a key that will unlock your future dream, or nightmare", true);
       Item bonus = new Item("bonus", "next to you is a bonus check, is it worth anything??", false, true);
       Item car = new Item("minivan", "wow it's a minivan! You need this for all of your kids");
-      Item map = new Item("map", "near you is a map that may help your journey, if you can trust it...");
+      Item map = new Item("map", "near you is a map that may help your journey, if you can trust it...", false, false, true);
 
       //items to rooms
       Random.Items.Add(key);
@@ -266,6 +267,11 @@ namespace CastleGrimtol.Project
       {
         System.Console.WriteLine("Good job! You have unlocked the secret to life!.....");
         WinGame();
+      }
+
+      if (mycurrentitem == BrightenRoom)
+      {
+        System.Console.WriteLine("You used the map in your world of travel, smart decision. The world just got much brighter! What would you like to do next?");
       }
     }
   }

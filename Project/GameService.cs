@@ -59,11 +59,27 @@ namespace CastleGrimtol.Project
           Quit();
           break;
 
+        default:
+          System.Console.WriteLine("Not a Valid option");
+          break;
       }
     }
 
     public void Go(string direction)
     {
+      if (CurrentRoom.Exits.ContainsKey(direction) && CurrentRoom.LockedRoom != true)
+      {
+        CurrentRoom = CurrentRoom.Exits[direction];
+        Look();
+      }
+      else if (CurrentRoom.LockedRoom)
+      {
+        System.Console.WriteLine("It's locked, I would use a key if you have it?");
+      }
+      else
+      {
+        System.Console.WriteLine("You can't go that way");
+      }
 
     }
 
@@ -74,12 +90,17 @@ namespace CastleGrimtol.Project
 
     public void Inventory()
     {
+      foreach (var item in CurrentPlayer.Inventory)
+      {
+        System.Console.WriteLine(item.Name);
 
+      }
     }
 
     public void Look()
     {
-
+      Console.WriteLine($"\n {CurrentRoom.Name}:  {CurrentRoom.Description}");
+      CurrentRoom.PrintItems();
     }
 
     public void Quit()
@@ -98,7 +119,6 @@ namespace CastleGrimtol.Project
 
     public void Reset()
     {
-      //reset the game 
       Setup();
     }
 
@@ -182,11 +202,31 @@ namespace CastleGrimtol.Project
     public void TakeItem(string itemName)
     {
       //bonus check
+      Item item = CurrentRoom.TakeItem(itemName);
+      if (item == null)
+      {
+        Console.WriteLine($"\n Cannot take {itemName} from this room");
+      }
+      else
+      {
+        CurrentPlayer.Inventory.Add(item);
+        Console.WriteLine($"\n {item.Name} is in your inventory!");
+      }
     }
 
     public void UseItem(string itemName)
     {
       //bonus check 
+      Item item = CurrentRoom.UseItem(itemName);
+      if (item == null)
+      {
+        Console.WriteLine($"\n Cannot use {itemName} in this room");
+      }
+      else
+      {
+        CurrentPlayer.Inventory.Remove(item);
+        Console.WriteLine($"\n {item.Name} is no longer in your inventory!");
+      }
     }
   }
 }

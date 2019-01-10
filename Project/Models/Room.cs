@@ -22,5 +22,31 @@ namespace CastleGrimtol.Project.Models
       Items = new List<Item>();
     }
 
+    public Item TakeItem(string itemName)
+    {
+      Item myitem = Items.Find(item => item.Name == itemName);
+      Items.Remove(myitem);
+      return myitem;
+    }
+
+    public void PrintItems()
+    {
+      if (Items.Count > 0)
+      {
+        Items.ForEach(item =>
+        {
+          System.Console.WriteLine($"\n{item.Name} -- {item.Description}");
+        });
+      }
+      else
+      {
+        System.Console.WriteLine("you want no items in this room");
+      }
+    }
+
+    public Item UseItem(string itemName)
+    {
+      throw new System.NotImplementedException();
+    }
   }
 }

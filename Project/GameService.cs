@@ -136,7 +136,8 @@ namespace CastleGrimtol.Project
       else
       {
         System.Console.WriteLine("Fine, Quit. Go Back To Your Old Life Then");
-        Console.Clear();
+        Playing = false;
+
       }
     }
 
@@ -217,13 +218,13 @@ namespace CastleGrimtol.Project
 
     public void StartGame()
     {
-      Setup();
       while (Playing)
       {
         System.Console.Write($"\n What will your next move be {CurrentPlayer.PlayerName}?");
         GetUserInput();
-        Playing = true;
+
       }
+      System.Console.WriteLine("Goodbye");
     }
     public void WinGame()
     {

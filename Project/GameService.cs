@@ -126,11 +126,11 @@ namespace CastleGrimtol.Project
 
     public void Quit()
     {
-      Console.Clear();
       System.Console.WriteLine("Do You Want to play again?  y/n ");
       string response = Console.ReadLine().ToLower();
       if ((response == "y" || response == "yes"))
       {
+        Console.Clear();
         StartGame();
       }
       else
@@ -160,7 +160,7 @@ namespace CastleGrimtol.Project
 
       Room Worldtravel = new Room("World Traveler", "You are a World Traveler. You are sitting in a café in Italy, violins are playing in the background and you have the whole day ahead of you with no plans. A young couple to your right are having a loud conversation. You see the door to the West....");
 
-      Room Random = new Room("Random Room", "You are in a room of endless opportunities. Good things may happen, bad things may happen. Life will decide your fate. Try to leave and see what happens...", false, true);
+      Room Random = new Room("Random Room", "You are in a dark room of endless opportunities. Good things may happen, bad things may happen. Life will decide your fate. Try to leave and see what happens...", false, true);
 
       //exits to rooms
       Hallway.Exits.Add("north", Family);
@@ -232,6 +232,7 @@ namespace CastleGrimtol.Project
       string response = Console.ReadLine().ToLower();
       if ((response == "y" || response == "yes"))
       {
+        Console.Clear();
         StartGame();
       }
       else
@@ -287,11 +288,11 @@ namespace CastleGrimtol.Project
           System.Console.WriteLine("Good job! You have unlocked the secret to life!.....");
           WinGame();
 
-          if (mycurrentitem.Name == "lightswitch")
-          {
-            System.Console.WriteLine("Congrats you switched on the lights! Now you can unlock the door and go!");
-            CurrentRoom.LockedRoom = false;
-          }
+        }
+        if (mycurrentitem.Name == "lightswitch")
+        {
+          System.Console.WriteLine("Congrats you switched on the lights! Now you can unlock the door and go!");
+          CurrentRoom.LockedRoom = false;
         }
       }
     }

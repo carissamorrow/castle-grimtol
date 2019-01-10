@@ -24,29 +24,35 @@ namespace CastleGrimtol.Project
     public List<string> Directions { get; set; }
     public bool UseCheck { get; private set; }
     public bool UseKey { get; private set; }
+    public Item IsWinnable { get; private set; }
+    public Item IsLosable { get; private set; }
 
     public void GetUserInput()
     {
-      string input = Console.ReadLine().ToLower();
-      string command = input;
+      string[] input = Console.ReadLine().ToLower().Split(" ");
+      string command = input[0];
       string userOption = "";
+      if (input.Length > 1)
+      {
+        userOption = input[1];
+      }
       switch (command)
       {
-        case "go north":
-          Go("north");
+        case "go":
+          Go(userOption);
           break;
 
-        case "go south":
-          Go("south");
-          break;
+        // case "go south":
+        //   Go("south");
+        //   break;
 
-        case "go east":
-          Go("east");
-          break;
+        // case "go east":
+        //   Go("east");
+        //   break;
 
-        case "go west":
-          Go("west");
-          break;
+        // case "go west":
+        //   Go("west");
+        //   break;
 
         case "use":
           UseItem(userOption);
@@ -99,7 +105,7 @@ namespace CastleGrimtol.Project
     public void Help()
     {
       System.Console.WriteLine("Here are your Choices:");
-      System.Console.WriteLine(@"Go <East, West, North, South>, Use <item>, Take <item>, Restart, Quit, Inventory");
+      System.Console.WriteLine(@"Go <East, West, North, South>, Use <item>, Take <item>, Quit, Inventory");
     }
 
     public void Inventory()
@@ -128,12 +134,13 @@ namespace CastleGrimtol.Project
       else
       {
         System.Console.WriteLine("Fine, Quit. Go Back To Your Old Life Then");
+        Console.Clear();
       }
     }
 
     public void Reset()
     {
-      Setup();
+
     }
 
     public void Setup()
@@ -183,9 +190,10 @@ namespace CastleGrimtol.Project
       Commands.Add("Help", "");
       Commands.Add("Quit", "");
 
+
       //items
-      Item key = new Item("key", "on the floor is a key that will unlock your future dream, or nightmare");
-      Item bonus = new Item("bonus check", "next to you is a bonus check, is it worth anything??");
+      Item key = new Item("key", "on the floor is a key that will unlock your future dream, or nightmare", true);
+      Item bonus = new Item("bonus", "next to you is a bonus check, is it worth anything??", false, true);
       Item car = new Item("minivan", "wow it's a minivan! You need this for all of your kids");
       Item map = new Item("map", "near you is a map that may help your journey, if you can trust it...");
 
@@ -212,7 +220,7 @@ namespace CastleGrimtol.Project
       }
 
     }
-    public void EndGame()
+    public void LoseGame()
     {
       System.Console.WriteLine("Sorry for your loss, please play again soon");
       Reset();
@@ -244,30 +252,17 @@ namespace CastleGrimtol.Project
       {
         Console.WriteLine($"\n Cannot use {itemName} in this room");
       }
-      switch (itemName)
+      else
       {
-        case "key":
-          Usekey();
-          break;
-
-        case "bonus check":
-          UseBonusCheck();
-          break;
+        System.Console.WriteLine($"\n You used {itemName}");
       }
-    }
 
-    private void UseBonusCheck()
-    {
-      if (UseCheck)
+      if (mycurrentitem == IsLosable)
       {
         System.Console.WriteLine("Oh No you used all of your bonus check and you ran out of money. You can no longer live in your new life");
-        EndGame();
+        LoseGame();
       }
-    }
-
-    private void Usekey()
-    {
-      if (UseKey)
+      else if (mycurrentitem == IsWinnable)
       {
         System.Console.WriteLine("Good job! You have unlocked the secret to life!.....");
         WinGame();

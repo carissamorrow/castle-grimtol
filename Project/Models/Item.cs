@@ -7,11 +7,16 @@ namespace CastleGrimtol.Project.Models
   {
     public string Name { get; set; }
     public string Description { get; set; }
+    public bool IsWinnable { get; set; }
+    public bool IsLosable { get; set; }
 
-    public Item(string name, string description)
+    public Item(string name, string description, bool winnable = false, bool losable = false)
     {
       Name = name;
       Description = description;
+      IsWinnable = winnable;
+      IsLosable = losable;
+
     }
 
   }

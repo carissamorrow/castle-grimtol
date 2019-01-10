@@ -22,11 +22,15 @@ namespace CastleGrimtol.Project
     public bool Playing { get; set; }
     public Dictionary<string, string> Commands { get; set; }
     public List<string> Directions { get; set; }
+    public bool UseCheck { get; private set; }
+    public bool UseKey { get; private set; }
 
     public void GetUserInput()
     {
-      string input = Console.ReadLine();
-      switch (input.ToLower())
+      string input = Console.ReadLine().ToLower();
+      string command = input;
+      string userOption = "";
+      switch (command)
       {
         case "go north":
           Go("north");
@@ -45,11 +49,11 @@ namespace CastleGrimtol.Project
           break;
 
         case "use":
-          UseItem(input);
+          UseItem(userOption);
           break;
 
         case "take":
-          TakeItem(input);
+          TakeItem(userOption);
           break;
 
         case "look":
@@ -208,6 +212,15 @@ namespace CastleGrimtol.Project
       }
 
     }
+    public void EndGame()
+    {
+      System.Console.WriteLine("Sorry for your loss, please play again soon");
+      Reset();
+    }
+    public void WinGame()
+    {
+      System.Console.WriteLine("You won! Your New Life is better and a complete upgrade! What a catch you are!");
+    }
 
     public void TakeItem(string itemName)
     {
@@ -225,15 +238,39 @@ namespace CastleGrimtol.Project
 
     public void UseItem(string itemName)
     {
-      Item item = CurrentRoom.UseItem(itemName);
-      if (item == null)
+      Item mycurrentitem = CurrentPlayer.Inventory.Find(item => item.Name == itemName);
+
+      if (mycurrentitem == null)
       {
         Console.WriteLine($"\n Cannot use {itemName} in this room");
       }
-      else
+      switch (itemName)
       {
-        CurrentPlayer.Inventory.Remove(item);
-        Console.WriteLine($"\n {item.Name} is no longer in your inventory!");
+        case "key":
+          Usekey();
+          break;
+
+        case "bonus check":
+          UseBonusCheck();
+          break;
+      }
+    }
+
+    private void UseBonusCheck()
+    {
+      if (UseCheck)
+      {
+        System.Console.WriteLine("Oh No you used all of your bonus check and you ran out of money. You can no longer live in your new life");
+        EndGame();
+      }
+    }
+
+    private void Usekey()
+    {
+      if (UseKey)
+      {
+        System.Console.WriteLine("Good job! You have unlocked the secret to life!.....");
+        WinGame();
       }
     }
   }

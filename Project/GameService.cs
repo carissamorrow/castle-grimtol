@@ -94,7 +94,7 @@ namespace CastleGrimtol.Project
       }
       else if (CurrentRoom.LockedRoom)
       {
-        System.Console.WriteLine("It's locked, I would use a key if you have it?");
+        System.Console.WriteLine("It's locked and dark, I would use a lightswitch if you have it? That way you can unlock the door and go");
       }
       else
       {
@@ -126,11 +126,12 @@ namespace CastleGrimtol.Project
 
     public void Quit()
     {
+      Console.Clear();
       System.Console.WriteLine("Do You Want to play again?  y/n ");
       string response = Console.ReadLine().ToLower();
       if ((response == "y" || response == "yes"))
       {
-        Reset();
+        StartGame();
       }
       else
       {
@@ -141,11 +142,11 @@ namespace CastleGrimtol.Project
 
     public void Reset()
     {
-
     }
 
     public void Setup()
     {
+      Console.Clear();
       Commands = new Dictionary<string, string>();
       Directions = new List<string>();
       Playing = true;
@@ -159,7 +160,7 @@ namespace CastleGrimtol.Project
 
       Room Worldtravel = new Room("World Traveler", "You are a World Traveler. You are sitting in a café in Italy, violins are playing in the background and you have the whole day ahead of you with no plans. A young couple to your right are having a loud conversation. You see the door to the West....");
 
-      Room Random = new Room("Random Room", "You are in a room of endless opportunities. Good things may happen, bad things may happen. Life will decide your fate");
+      Room Random = new Room("Random Room", "You are in a room of endless opportunities. Good things may happen, bad things may happen. Life will decide your fate. Try to leave and see what happens...", false, true);
 
       //exits to rooms
       Hallway.Exits.Add("north", Family);
@@ -193,17 +194,20 @@ namespace CastleGrimtol.Project
 
 
       //items
-      Item key = new Item("key", "on the floor is a key that will unlock your future dream, or nightmare", true);
-      Item bonus = new Item("bonus", "next to you is a bonus check, is it worth anything??", false, true);
-      Item car = new Item("minivan", "wow it's a minivan! You need this for all of your kids");
-      Item map = new Item("map", "near you is a map that may help your journey, if you can trust it...", false, false, true);
-      Item banana = new Item("banana", "you found a banana, it will help you travel through life when you're hungry");
+      Item key = new Item("key", "on the floor is a key that will unlock your future dream, or nightmare", true, false, false);
+      Item bonus = new Item("bonus", "next to you is a bonus check, is it worth anything??", false, true, false);
+      Item car = new Item("minivan", "wow it's a minivan! You need this for all of your kids", false, false, false);
+      Item map = new Item("map", "near you is a map that may help your journey, if you can trust it...", false, false, false);
+      Item banana = new Item("banana", "you found a banana, it will help you travel through life when you're hungry", false, false, false);
+      Item lightswitch = new Item("lightswitch", "if you enter a dark room you have to use the lightswitch to turn the lights on or you are stuck forever in the black hole", false, false, true);
+
       //items to rooms
       Random.Items.Add(key);
       Career.Items.Add(bonus);
       Family.Items.Add(car);
       Worldtravel.Items.Add(map);
       Worldtravel.Items.Add(banana);
+      Random.Items.Add(lightswitch);
 
       //start player in hallway to start the game
       System.Console.WriteLine("Thank you for playing! You are starting the game in the Hallway of your new life with an option in every direction. Choose Wisely and Enjoy the Game...");
@@ -220,20 +224,26 @@ namespace CastleGrimtol.Project
         GetUserInput();
         Playing = true;
       }
-
-    }
-    public void LoseGame()
-    {
-      System.Console.WriteLine("Sorry for your loss, please play again soon");
-      Reset();
     }
     public void WinGame()
     {
-      System.Console.WriteLine("You won! Your New Life is better and a complete upgrade! What a catch you are!");
+      System.Console.WriteLine("Your New Life is better and a complete upgrade! What a catch you are!");
+      System.Console.WriteLine("Do You Want to play again?  y/n ");
+      string response = Console.ReadLine().ToLower();
+      if ((response == "y" || response == "yes"))
+      {
+        StartGame();
+      }
+      else
+      {
+        System.Console.WriteLine("Ok Sounds Good");
+        Console.Clear();
+      }
     }
 
     public void TakeItem(string itemName)
     {
+      Console.Clear();
       Item item = CurrentRoom.TakeItem(itemName);
       if (item == null)
       {
@@ -257,20 +267,31 @@ namespace CastleGrimtol.Project
       else if (mycurrentitem != null)
       {
         System.Console.WriteLine($"\n You used the {itemName}");
-        if (mycurrentitem == IsLosable)
+        if (mycurrentitem.IsLosable)
         {
           System.Console.WriteLine("Oh No you used all of your bonus check and you ran out of money. You can no longer live in your new life");
-          LoseGame();
+          System.Console.WriteLine("Do You Want to play again?  y/n ");
+          string response = Console.ReadLine().ToLower();
+          if ((response == "y" || response == "yes"))
+          {
+            StartGame();
+          }
+          else
+          {
+            System.Console.WriteLine("Ok Sounds Good");
+            Console.Clear();
+          }
         }
-        else if (mycurrentitem == IsWinnable)
+        else if (mycurrentitem.IsWinnable)
         {
           System.Console.WriteLine("Good job! You have unlocked the secret to life!.....");
           WinGame();
-        }
 
-        else if (mycurrentitem == BrightenRoom)
-        {
-          System.Console.WriteLine("You used the map in your world of travel, smart decision. The world just got much brighter! What would you like to do next?");
+          if (mycurrentitem.Name == "lightswitch")
+          {
+            System.Console.WriteLine("Congrats you switched on the lights! Now you can unlock the door and go!");
+            CurrentRoom.LockedRoom = false;
+          }
         }
       }
     }

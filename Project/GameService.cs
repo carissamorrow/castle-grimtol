@@ -197,12 +197,13 @@ namespace CastleGrimtol.Project
       Item bonus = new Item("bonus", "next to you is a bonus check, is it worth anything??", false, true);
       Item car = new Item("minivan", "wow it's a minivan! You need this for all of your kids");
       Item map = new Item("map", "near you is a map that may help your journey, if you can trust it...", false, false, true);
-
+      Item banana = new Item("banana", "you found a banana, it will help you travel through life when you're hungry");
       //items to rooms
       Random.Items.Add(key);
       Career.Items.Add(bonus);
       Family.Items.Add(car);
       Worldtravel.Items.Add(map);
+      Worldtravel.Items.Add(banana);
 
       //start player in hallway to start the game
       System.Console.WriteLine("Thank you for playing! You are starting the game in the Hallway of your new life with an option in every direction. Choose Wisely and Enjoy the Game...");
@@ -253,25 +254,24 @@ namespace CastleGrimtol.Project
       {
         Console.WriteLine($"\n Cannot use {itemName} in this room");
       }
-      else
+      else if (mycurrentitem != null)
       {
-        System.Console.WriteLine($"\n You used {itemName}");
-      }
+        System.Console.WriteLine($"\n You used the {itemName}");
+        if (mycurrentitem == IsLosable)
+        {
+          System.Console.WriteLine("Oh No you used all of your bonus check and you ran out of money. You can no longer live in your new life");
+          LoseGame();
+        }
+        else if (mycurrentitem == IsWinnable)
+        {
+          System.Console.WriteLine("Good job! You have unlocked the secret to life!.....");
+          WinGame();
+        }
 
-      if (mycurrentitem == IsLosable)
-      {
-        System.Console.WriteLine("Oh No you used all of your bonus check and you ran out of money. You can no longer live in your new life");
-        LoseGame();
-      }
-      else if (mycurrentitem == IsWinnable)
-      {
-        System.Console.WriteLine("Good job! You have unlocked the secret to life!.....");
-        WinGame();
-      }
-
-      if (mycurrentitem == BrightenRoom)
-      {
-        System.Console.WriteLine("You used the map in your world of travel, smart decision. The world just got much brighter! What would you like to do next?");
+        else if (mycurrentitem == BrightenRoom)
+        {
+          System.Console.WriteLine("You used the map in your world of travel, smart decision. The world just got much brighter! What would you like to do next?");
+        }
       }
     }
   }

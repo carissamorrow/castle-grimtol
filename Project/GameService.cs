@@ -85,7 +85,8 @@ namespace CastleGrimtol.Project
 
     public void Help()
     {
-
+      System.Console.WriteLine("Here are your Choices:");
+      System.Console.WriteLine(@"Go <East, West, North, South>, Use <item>, Take <item>, Restart, Quit, Inventory");
     }
 
     public void Inventory()

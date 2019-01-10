@@ -25,22 +25,31 @@ namespace CastleGrimtol.Project
 
     public void GetUserInput()
     {
-      string input = Console.ReadLine().ToLower();
-      string command = input;
-      string userOption = "";
-      //switch statement for actions
-      switch (command)
+      string input = Console.ReadLine();
+      switch (input.ToLower())
       {
-        case "go":
-          Go(userOption);
+        case "go north":
+          Go("north");
+          break;
+
+        case "go south":
+          Go("south");
+          break;
+
+        case "go east":
+          Go("east");
+          break;
+
+        case "go west":
+          Go("west");
           break;
 
         case "use":
-          UseItem(userOption);
+          UseItem(input);
           break;
 
         case "take":
-          TakeItem(userOption);
+          TakeItem(input);
           break;
 
         case "look":
@@ -141,25 +150,25 @@ namespace CastleGrimtol.Project
       Room Random = new Room("Random Room", "You are in a room of endless opportunities. Good things may happen, bad things may happen. Life will decide your fate");
 
       //exits to rooms
-      Hallway.Exits.Add("North", Family);
-      Hallway.Exits.Add("South", Random);
-      Hallway.Exits.Add("East", Career);
-      Hallway.Exits.Add("West", Worldtravel);
-      Random.Exits.Add("North", Career);
-      Random.Exits.Add("West", Worldtravel);
-      Family.Exits.Add("East", Career);
-      Family.Exits.Add("West", Random);
-      Career.Exits.Add("North", Family);
-      Career.Exits.Add("South", Random);
-      Worldtravel.Exits.Add("West", Family);
-      Worldtravel.Exits.Add("South", Career);
+      Hallway.Exits.Add("north", Family);
+      Hallway.Exits.Add("south", Random);
+      Hallway.Exits.Add("east", Career);
+      Hallway.Exits.Add("west", Worldtravel);
+      Random.Exits.Add("north", Career);
+      Random.Exits.Add("west", Worldtravel);
+      Family.Exits.Add("east", Career);
+      Family.Exits.Add("west", Random);
+      Career.Exits.Add("north", Family);
+      Career.Exits.Add("south", Random);
+      Worldtravel.Exits.Add("west", Family);
+      Worldtravel.Exits.Add("south", Career);
 
 
       //directions
-      Directions.Add("North");
-      Directions.Add("South");
-      Directions.Add("East");
-      Directions.Add("West");
+      Directions.Add("north");
+      Directions.Add("south");
+      Directions.Add("east");
+      Directions.Add("west");
 
       //commands
       Commands.Add("Go", "<direction>");
@@ -202,7 +211,6 @@ namespace CastleGrimtol.Project
 
     public void TakeItem(string itemName)
     {
-      //bonus check
       Item item = CurrentRoom.TakeItem(itemName);
       if (item == null)
       {
@@ -217,7 +225,6 @@ namespace CastleGrimtol.Project
 
     public void UseItem(string itemName)
     {
-      //bonus check 
       Item item = CurrentRoom.UseItem(itemName);
       if (item == null)
       {

@@ -21,6 +21,8 @@ The Game of Life is a simple text based adventure game. You will need to know th
 	*if you take the bonus check and USE it, you will die :-(
 	*if you USE the key, you will win!
 	*when you are in the random room you are locked in all directions unless you use the lightswitch to turn on the lights so you can leave. if you don't use the lightswitch, you are stuck
+	*you can quit and choose to replay or not
+	*you can replay the game
 
 
 ### Rooms

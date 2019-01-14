@@ -18,15 +18,15 @@ The Game of Life is a simple text based adventure game. You will need to know th
 - `inventory`
 	- This command will list of the current items in your inventory
 
-	*if you take the bonus check, you will die :-(
-	*if you use the key, you will win!
+	*if you take the bonus check and USE it, you will die :-(
+	*if you USE the key, you will win!
 	*when you are in the random room you are locked in all directions unless you use the lightswitch to turn on the lights so you can leave. if you don't use the lightswitch, you are stuck
 
 
 ### Rooms
 
 You have 5 rooms:
-Hallways: where you start
+Hallways: where you start automatically
 Family Room
 Career Room
 World Traveler Room
